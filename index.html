@@ -117,6 +117,9 @@
         transition-duration: 0.01ms !important;
       }
     }
+    .content-reveal-item { transition: opacity .52s ease, transform .58s cubic-bezier(.2,.7,.2,1); }
+    html.has-content-reveal .content-reveal-item:not(.is-in-view) { opacity: 0; transform: translateY(12px); }
+    .content-reveal-item.is-in-view { opacity: 1; transform: translateY(0); }
     .journey-card { transition: opacity 560ms ease, transform 560ms cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .25s ease; }
     .journey-card:hover { box-shadow: 0 18px 40px rgba(28, 25, 23, .09); }
     .journey-image img { transition: transform .7s cubic-bezier(.2,.7,.2,1); }
@@ -140,7 +143,8 @@
     html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto !important; }
-      .journey-card, .journey-line, .journey-node, .journey-heading, .journey-image img { transition: none !important; animation: none !important; }
+      .journey-card, .journey-line, .journey-node, .journey-heading, .journey-image img, .content-reveal-item { transition: none !important; animation: none !important; }
+      html.has-content-reveal .content-reveal-item:not(.is-in-view), .content-reveal-item.is-in-view { opacity: 1; transform: none; }
       .journey-animate .journey-heading, .journey-animate .journey-card { opacity: 1; transform: none; }
       .journey-line { stroke-dashoffset: 0; }
       .journey-node { opacity: .85; transform: none; }
@@ -942,7 +946,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Locality 1: OMR -->
-        <div class="bg-stone-800/80 rounded-2xl p-6 border border-stone-700/80 hover:border-amber-500/60 transition-all flex flex-col justify-between group">
+        <div class="content-reveal-item bg-stone-800/80 rounded-2xl p-6 border border-stone-700/80 hover:border-amber-500/60 transition-all flex flex-col justify-between group">
           <div>
             <div class="flex justify-between items-start mb-3">
               <h3 class="text-2xl font-serif-display text-white">OMR IT Expressway</h3>
@@ -960,7 +964,7 @@
         </div>
 
         <!-- Locality 2: ECR -->
-        <div class="bg-stone-800/80 rounded-2xl p-6 border border-stone-700/80 hover:border-amber-500/60 transition-all flex flex-col justify-between group">
+        <div class="content-reveal-item bg-stone-800/80 rounded-2xl p-6 border border-stone-700/80 hover:border-amber-500/60 transition-all flex flex-col justify-between group">
           <div>
             <div class="flex justify-between items-start mb-3">
               <h3 class="text-2xl font-serif-display text-white">ECR Coastal Belt</h3>
@@ -978,7 +982,7 @@
         </div>
 
         <!-- Locality 3: Anna Nagar -->
-        <div class="bg-stone-800/80 rounded-2xl p-6 border border-stone-700/80 hover:border-amber-500/60 transition-all flex flex-col justify-between group">
+        <div class="content-reveal-item bg-stone-800/80 rounded-2xl p-6 border border-stone-700/80 hover:border-amber-500/60 transition-all flex flex-col justify-between group">
           <div>
             <div class="flex justify-between items-start mb-3">
               <h3 class="text-2xl font-serif-display text-white">Anna Nagar</h3>
@@ -996,7 +1000,7 @@
         </div>
 
         <!-- Locality 4: Adyar & Thiruvanmiyur -->
-        <div class="bg-stone-800/80 rounded-2xl p-6 border border-stone-700/80 hover:border-amber-500/60 transition-all flex flex-col justify-between group">
+        <div class="content-reveal-item bg-stone-800/80 rounded-2xl p-6 border border-stone-700/80 hover:border-amber-500/60 transition-all flex flex-col justify-between group">
           <div>
             <div class="flex justify-between items-start mb-3">
               <h3 class="text-2xl font-serif-display text-white">Adyar & South Coast</h3>
@@ -1014,7 +1018,7 @@
         </div>
 
         <!-- Locality 5: Velachery & South Transit -->
-        <div class="bg-stone-800/80 rounded-2xl p-6 border border-stone-700/80 hover:border-amber-500/60 transition-all flex flex-col justify-between group">
+        <div class="content-reveal-item bg-stone-800/80 rounded-2xl p-6 border border-stone-700/80 hover:border-amber-500/60 transition-all flex flex-col justify-between group">
           <div>
             <div class="flex justify-between items-start mb-3">
               <h3 class="text-2xl font-serif-display text-white">Velachery</h3>
@@ -1032,7 +1036,7 @@
         </div>
 
         <!-- Locality 6: Medavakkam & Porur -->
-        <div class="bg-stone-800/80 rounded-2xl p-6 border border-stone-700/80 hover:border-amber-500/60 transition-all flex flex-col justify-between group">
+        <div class="content-reveal-item bg-stone-800/80 rounded-2xl p-6 border border-stone-700/80 hover:border-amber-500/60 transition-all flex flex-col justify-between group">
           <div>
             <div class="flex justify-between items-start mb-3">
               <h3 class="text-2xl font-serif-display text-white">Medavakkam & Porur</h3>
@@ -1278,7 +1282,7 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl p-8 border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
+        <div class="content-reveal-item bg-white rounded-2xl p-8 border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
           <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
             <i data-lucide="home" class="w-6 h-6"></i>
           </div>
@@ -1293,7 +1297,7 @@
           </a>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
+        <div class="content-reveal-item bg-white rounded-2xl p-8 border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
           <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
             <i data-lucide="building-2" class="w-6 h-6"></i>
           </div>
@@ -1308,7 +1312,7 @@
           </a>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
+        <div class="content-reveal-item bg-white rounded-2xl p-8 border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
           <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
             <i data-lucide="map" class="w-6 h-6"></i>
           </div>
@@ -1323,7 +1327,7 @@
           </a>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
+        <div class="content-reveal-item bg-white rounded-2xl p-8 border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
           <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
             <i data-lucide="key" class="w-6 h-6"></i>
           </div>
@@ -1338,7 +1342,7 @@
           </a>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
+        <div class="content-reveal-item bg-white rounded-2xl p-8 border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
           <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
             <i data-lucide="calendar" class="w-6 h-6"></i>
           </div>
@@ -1353,7 +1357,7 @@
           </a>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
+        <div class="content-reveal-item bg-white rounded-2xl p-8 border border-stone-200 shadow-sm hover:shadow-md transition-shadow group">
           <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
             <i data-lucide="compass" class="w-6 h-6"></i>
           </div>
@@ -2616,6 +2620,28 @@
       sort: 'featured'
     };
 
+    let contentRevealObserver = null;
+
+    function observeContentRevealItems(root = document) {
+      if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      document.documentElement.classList.add('has-content-reveal');
+      if (!contentRevealObserver) {
+        contentRevealObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-in-view');
+            contentRevealObserver.unobserve(entry.target);
+          });
+        }, { threshold: 0.08, rootMargin: '0px 0px -3% 0px' });
+      }
+
+      if (root.matches?.('.content-reveal-item') && !root.classList.contains('is-in-view')) {
+        contentRevealObserver.observe(root);
+      }
+      root.querySelectorAll?.('.content-reveal-item:not(.is-in-view)').forEach(item => contentRevealObserver.observe(item));
+    }
+
     function renderProperties() {
       const grid = document.getElementById('property-grid');
       const countEl = document.getElementById('results-count');
@@ -2706,7 +2732,7 @@
         const isShortlisted = savedPropertyIds.includes(item.id);
 
         return `
-          <div class="bg-white rounded-3xl overflow-hidden border border-stone-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+          <div class="content-reveal-item bg-white rounded-3xl overflow-hidden border border-stone-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
             <div class="relative h-60 w-full overflow-hidden bg-stone-100 cursor-pointer" onclick="openPropertyModal(${item.id})">
               <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'">
               <div class="absolute inset-0 bg-gradient-to-t from-stone-950/65 via-transparent to-transparent opacity-80"></div>
@@ -2789,6 +2815,8 @@
           </div>
         `;
       }).join('');
+
+      observeContentRevealItems(grid);
 
       if (typeof lucide !== 'undefined') {
         lucide.createIcons();
@@ -4125,6 +4153,7 @@
       setupStampDutyCalculator();
       initializeGSAPAnimations();
       setupCustomerJourneyAnimation();
+      observeContentRevealItems();
       setupVideos();
 
       if (typeof lucide !== 'undefined') {
