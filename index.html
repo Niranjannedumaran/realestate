@@ -126,6 +126,13 @@
     .property-card-specs span { overflow-wrap: anywhere; }
     .property-card-actions > * { min-width: 0; }
     .property-card-price { min-width: 0; overflow-wrap: anywhere; }
+    .portfolio-card-badges { max-width: calc(100% - 3.75rem); flex-wrap: wrap; row-gap: .4rem; }
+    .portfolio-card-badges > span { max-width: 100%; overflow-wrap: anywhere; }
+    .portfolio-card-save { flex: 0 0 auto; }
+    @media (max-width: 380px) {
+      .portfolio-card-badges { gap: .35rem; }
+      .portfolio-card-badges > span { padding-inline: .65rem; font-size: .65rem; }
+    }
     .journey-card { transition: opacity 560ms ease, transform 560ms cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .25s ease; }
     .journey-card:hover { box-shadow: 0 18px 40px rgba(28, 25, 23, .09); }
     .journey-image img { transition: transform .7s cubic-bezier(.2,.7,.2,1); }
@@ -699,16 +706,16 @@
           <path d="M -100 250 Q 500 0, 1000 250 T 2100 250" stroke="#C98B32" stroke-width="2.5" opacity="0.3" class="path-anim"></path>
         </svg>
 
-        <div class="cards-track flex gap-4 md:gap-8 px-4 sm:px-6 md:px-12 w-max h-[480px] md:h-[540px] items-stretch md:items-center">
+        <div class="cards-track flex gap-4 md:gap-8 px-4 sm:px-6 md:px-12 w-max min-h-[440px] h-[min(480px,calc(100svh-11rem))] md:h-[540px] items-stretch md:items-center">
           <!-- Card 1 -->
-          <div class="property-card snap-start shrink-0 relative w-[84vw] max-w-[350px] sm:w-[380px] md:w-[440px] h-full rounded-[2rem] overflow-hidden group shadow-xl cursor-pointer border border-stone-200/90 bg-stone-900" onclick="openPropertyModal(1)">
+          <div class="property-card snap-start shrink-0 relative w-[calc(100vw-2.5rem)] max-w-[350px] sm:w-[min(80vw,380px)] md:w-[440px] min-h-[440px] h-full rounded-3xl sm:rounded-[2rem] overflow-hidden group shadow-xl cursor-pointer border border-stone-200/90 bg-stone-900" onclick="openPropertyModal(1)">
             <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80" alt="ECR Coastal Villa" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/40 to-transparent"></div>
-            <div class="absolute top-5 left-5 bg-white/95 backdrop-blur-md rounded-full px-3.5 py-1 text-xs font-bold text-stone-900 shadow">For Sale</div>
+            <div class="portfolio-card-badges absolute top-4 left-4 sm:top-5 sm:left-5 flex gap-2 z-10"><span class="bg-white/95 backdrop-blur-md rounded-full px-3.5 py-1 text-xs font-bold text-stone-900 shadow">For Sale</span></div>
             <div class="absolute bottom-0 left-0 w-full p-5 sm:p-7 text-white">
               <div class="flex justify-between items-center mb-2.5">
                 <div class="bg-amber-500 text-stone-950 rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-bold shadow-md shrink-0">₹2.75 Crore</div>
-                <button type="button" aria-label="View property details" onclick="event.stopPropagation(); openPropertyModal(1)" class="w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
+                <button type="button" aria-label="View property details" onclick="event.stopPropagation(); openPropertyModal(1)" class="portfolio-card-save w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
                   <i data-lucide="arrow-up-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </button>
               </div>
@@ -722,14 +729,14 @@
           </div>
 
           <!-- Card 2 -->
-          <div class="property-card snap-start shrink-0 relative w-[84vw] max-w-[350px] sm:w-[380px] md:w-[440px] h-full rounded-[2rem] overflow-hidden group shadow-xl cursor-pointer border border-stone-200/90 bg-stone-900" onclick="openPropertyModal(2)">
+          <div class="property-card snap-start shrink-0 relative w-[calc(100vw-2.5rem)] max-w-[350px] sm:w-[min(80vw,380px)] md:w-[440px] min-h-[440px] h-full rounded-3xl sm:rounded-[2rem] overflow-hidden group shadow-xl cursor-pointer border border-stone-200/90 bg-stone-900" onclick="openPropertyModal(2)">
             <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1000&q=80" alt="OMR High Rise" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/40 to-transparent"></div>
-            <div class="absolute top-5 left-5 bg-white/95 backdrop-blur-md rounded-full px-3.5 py-1 text-xs font-bold text-stone-900 shadow">For Sale</div>
+            <div class="portfolio-card-badges absolute top-4 left-4 sm:top-5 sm:left-5 flex gap-2 z-10"><span class="bg-white/95 backdrop-blur-md rounded-full px-3.5 py-1 text-xs font-bold text-stone-900 shadow">For Sale</span></div>
             <div class="absolute bottom-0 left-0 w-full p-5 sm:p-7 text-white">
               <div class="flex justify-between items-center mb-2.5">
                 <div class="bg-amber-500 text-stone-950 rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-bold shadow-md shrink-0">₹85 Lakhs</div>
-                <button type="button" aria-label="View property details" onclick="event.stopPropagation(); openPropertyModal(2)" class="w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
+                <button type="button" aria-label="View property details" onclick="event.stopPropagation(); openPropertyModal(2)" class="portfolio-card-save w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
                   <i data-lucide="arrow-up-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </button>
               </div>
@@ -742,14 +749,14 @@
           </div>
 
           <!-- Card 3 -->
-          <div class="property-card snap-start shrink-0 relative w-[84vw] max-w-[350px] sm:w-[380px] md:w-[440px] h-full rounded-[2rem] overflow-hidden group shadow-xl cursor-pointer border border-stone-200/90 bg-stone-900" onclick="openPropertyModal(3)">
+          <div class="property-card snap-start shrink-0 relative w-[calc(100vw-2.5rem)] max-w-[350px] sm:w-[min(80vw,380px)] md:w-[440px] min-h-[440px] h-full rounded-3xl sm:rounded-[2rem] overflow-hidden group shadow-xl cursor-pointer border border-stone-200/90 bg-stone-900" onclick="openPropertyModal(3)">
             <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1000&q=80" alt="Anna Nagar Independent Home" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/40 to-transparent"></div>
-            <div class="absolute top-5 left-5 bg-white/95 backdrop-blur-md rounded-full px-3.5 py-1 text-xs font-bold text-stone-900 shadow">For Sale</div>
+            <div class="portfolio-card-badges absolute top-4 left-4 sm:top-5 sm:left-5 flex gap-2 z-10"><span class="bg-white/95 backdrop-blur-md rounded-full px-3.5 py-1 text-xs font-bold text-stone-900 shadow">For Sale</span></div>
             <div class="absolute bottom-0 left-0 w-full p-5 sm:p-7 text-white">
               <div class="flex justify-between items-center mb-2.5">
                 <div class="bg-amber-500 text-stone-950 rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-bold shadow-md shrink-0">₹1.95 Crore</div>
-                <button type="button" aria-label="View property details" onclick="event.stopPropagation(); openPropertyModal(3)" class="w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
+                <button type="button" aria-label="View property details" onclick="event.stopPropagation(); openPropertyModal(3)" class="portfolio-card-save w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
                   <i data-lucide="arrow-up-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </button>
               </div>
@@ -762,14 +769,14 @@
           </div>
 
           <!-- Card 4 -->
-          <div class="property-card snap-start shrink-0 relative w-[84vw] max-w-[350px] sm:w-[380px] md:w-[440px] h-full rounded-[2rem] overflow-hidden group shadow-xl cursor-pointer border border-stone-200/90 bg-stone-900" onclick="openPropertyModal(5)">
+          <div class="property-card snap-start shrink-0 relative w-[calc(100vw-2.5rem)] max-w-[350px] sm:w-[min(80vw,380px)] md:w-[440px] min-h-[440px] h-full rounded-3xl sm:rounded-[2rem] overflow-hidden group shadow-xl cursor-pointer border border-stone-200/90 bg-stone-900" onclick="openPropertyModal(5)">
             <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1000&q=80" alt="Adyar Rental Flat" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/40 to-transparent"></div>
-            <div class="absolute top-5 left-5 bg-emerald-600 text-white rounded-full px-3.5 py-1 text-xs font-bold shadow">For Rent</div>
+            <div class="portfolio-card-badges absolute top-4 left-4 sm:top-5 sm:left-5 flex gap-2 z-10"><span class="bg-emerald-600 text-white rounded-full px-3.5 py-1 text-xs font-bold shadow">For Rent</span><span class="bg-white/95 backdrop-blur-md rounded-full px-3.5 py-1 text-xs font-bold text-stone-900 shadow">Rental Flat</span></div>
             <div class="absolute bottom-0 left-0 w-full p-5 sm:p-7 text-white">
               <div class="flex justify-between items-center mb-2.5">
                 <div class="bg-stone-900/95 backdrop-blur-md rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-bold text-amber-300 shadow shrink-0">₹75,000 / mo</div>
-                <button type="button" aria-label="View property details" onclick="event.stopPropagation(); openPropertyModal(5)" class="w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
+                <button type="button" aria-label="View property details" onclick="event.stopPropagation(); openPropertyModal(5)" class="portfolio-card-save w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
                   <i data-lucide="arrow-up-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </button>
               </div>
@@ -2743,21 +2750,21 @@
               <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'">
               <div class="absolute inset-0 bg-gradient-to-t from-stone-950/65 via-transparent to-transparent opacity-80"></div>
               
-              <div class="absolute top-4 left-4 flex gap-2">
-                <span class="px-3 py-1 rounded-full text-xs font-bold ${statusClass} shadow-sm">
+              <div class="portfolio-card-badges absolute top-3 left-3 right-[3.75rem] sm:top-4 sm:left-4 sm:right-[4.5rem] flex gap-1.5 sm:gap-2">
+                <span class="px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold ${statusClass} shadow-sm">
                   ${item.statusLabel}
                 </span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/90 text-stone-800 backdrop-blur-md">
+                <span class="px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-white/90 text-stone-800 backdrop-blur-md">
                   ${item.typeName}
                 </span>
               </div>
 
-              <div class="absolute top-4 right-4 flex items-center gap-1.5 z-10">
-                <div class="bg-amber-500 text-stone-950 text-[10px] font-bold px-2.5 py-1 rounded-full shadow">
+              <div class="absolute top-3 right-3 sm:top-4 sm:right-4 flex items-center gap-1.5 z-10">
+                <div class="max-w-[calc(100vw-10rem)] sm:max-w-none bg-amber-500 text-stone-950 text-[9px] sm:text-[10px] font-bold px-2 sm:px-2.5 py-1 rounded-full shadow truncate">
                   ${item.approval}
                 </div>
                 <button onclick="toggleShortlist(${item.id}, event)" aria-label="Save to shortlist"
-                        class="w-8 h-8 rounded-full ${isShortlisted ? 'bg-rose-600 text-white' : 'bg-stone-900/60 text-white hover:bg-stone-900'} backdrop-blur-md flex items-center justify-center transition-all shadow-md">
+                        class="portfolio-card-save w-8 h-8 rounded-full ${isShortlisted ? 'bg-rose-600 text-white' : 'bg-stone-900/60 text-white hover:bg-stone-900'} backdrop-blur-md flex items-center justify-center transition-all shadow-md">
                   <i data-lucide="heart" class="w-4 h-4 ${isShortlisted ? 'fill-current' : ''}"></i>
                 </button>
               </div>
