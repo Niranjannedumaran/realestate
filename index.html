@@ -105,6 +105,18 @@
     .modal-open {
       overflow: hidden;
     }
+    :focus-visible {
+      outline: 3px solid #C98B32;
+      outline-offset: 3px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
     /* Range Slider Styling */
     input[type=range] {
       accent-color: #C98B32;
@@ -200,7 +212,7 @@
     </div>
 
     <!-- Mobile Drawer Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-stone-950/60 backdrop-blur-sm z-50 hidden transition-opacity duration-300 xl:hidden">
+    <div id="mobile-menu" class="fixed inset-0 bg-stone-950/60 backdrop-blur-sm z-50 hidden transition-opacity duration-300 xl:hidden" role="dialog" aria-modal="true" aria-label="Main navigation">
       <div class="fixed top-0 right-0 w-4/5 max-w-sm h-full bg-[#FAF8F5] p-6 shadow-2xl flex flex-col justify-between overflow-y-auto">
         <div>
           <!-- Drawer Header -->
@@ -216,7 +228,7 @@
 
           <!-- Drawer Navigation Links -->
           <nav class="flex flex-col space-y-3.5 py-6 text-sm font-medium text-stone-800">
-            <button onclick="openShortlistDrawer(); closeMobileMenu();" class="mobile-nav-link hover:text-amber-700 transition-colors py-1.5 flex items-center justify-between w-full text-left">
+            <button onclick="closeMobileMenu(); openShortlistDrawer();" class="mobile-nav-link hover:text-amber-700 transition-colors py-1.5 flex items-center justify-between w-full text-left">
               <span class="flex items-center gap-2 text-rose-600 font-bold">
                 <i data-lucide="heart" class="w-4 h-4 fill-current"></i>
                 <span>Saved Homes (<span id="mobile-saved-count">0</span>)</span>
@@ -431,39 +443,60 @@
       </div>
     </section>
 
-    <!-- MARKET SNAPSHOT HIGHLIGHTS -->
-    <section class="py-6 px-6 md:px-12 max-w-[1400px] mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0">
-            <i data-lucide="trending-up" class="w-6 h-6"></i>
+    <!-- MARKET SNAPSHOT HIGHLIGHTS (Interactive Quick Locality Jump) -->
+    <section class="py-6 px-4 sm:px-6 md:px-12 max-w-[1400px] mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        <div onclick="applyLocalityFilter('OMR')" role="button" tabindex="0"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();applyLocalityFilter('OMR');}"
+             class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex items-center justify-between gap-4 cursor-pointer hover:border-amber-500 hover:shadow-md transition-all group active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-amber-500">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+              <i data-lucide="trending-up" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-stone-400 uppercase tracking-wider">OMR IT Corridor</div>
+              <div class="text-sm font-bold text-stone-900 group-hover:text-amber-800 transition-colors">₹5,200 – ₹7,800 / sq.ft</div>
+              <div class="text-xs text-emerald-700 font-medium">High rental yields & tech proximity</div>
+            </div>
           </div>
-          <div>
-            <div class="text-xs font-bold text-stone-400 uppercase tracking-wider">OMR IT Corridor</div>
-            <div class="text-sm font-bold text-stone-900">₹5,200 – ₹7,800 / sq.ft</div>
-            <div class="text-xs text-emerald-700">High rental yields & tech proximity</div>
-          </div>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0">
-            <i data-lucide="waves" class="w-6 h-6"></i>
-          </div>
-          <div>
-            <div class="text-xs font-bold text-stone-400 uppercase tracking-wider">ECR Coastal Belt</div>
-            <div class="text-sm font-bold text-stone-900">Luxury Villas & Retreats</div>
-            <div class="text-xs text-amber-800">Serene beachside gated living</div>
+          <div class="w-8 h-8 rounded-full bg-stone-100 group-hover:bg-amber-500 text-stone-400 group-hover:text-white flex items-center justify-center shrink-0 transition-colors shadow-sm">
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </div>
         </div>
 
-        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0">
-            <i data-lucide="landmark" class="w-6 h-6"></i>
+        <div onclick="applyLocalityFilter('ECR')" role="button" tabindex="0"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();applyLocalityFilter('ECR');}"
+             class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex items-center justify-between gap-4 cursor-pointer hover:border-amber-500 hover:shadow-md transition-all group active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-amber-500">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+              <i data-lucide="waves" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-stone-400 uppercase tracking-wider">ECR Coastal Belt</div>
+              <div class="text-sm font-bold text-stone-900 group-hover:text-amber-800 transition-colors">Luxury Villas & Retreats</div>
+              <div class="text-xs text-amber-800 font-medium">Serene beachside gated living</div>
+            </div>
           </div>
-          <div>
-            <div class="text-xs font-bold text-stone-400 uppercase tracking-wider">Anna Nagar & Central</div>
-            <div class="text-sm font-bold text-stone-900">Heritage & Metro Connected</div>
-            <div class="text-xs text-stone-600">Prime residential appreciation</div>
+          <div class="w-8 h-8 rounded-full bg-stone-100 group-hover:bg-amber-500 text-stone-400 group-hover:text-white flex items-center justify-center shrink-0 transition-colors shadow-sm">
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <div onclick="applyLocalityFilter('Anna Nagar')" role="button" tabindex="0"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();applyLocalityFilter('Anna Nagar');}"
+             class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex items-center justify-between gap-4 cursor-pointer hover:border-amber-500 hover:shadow-md transition-all group active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-amber-500">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+              <i data-lucide="landmark" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-stone-400 uppercase tracking-wider">Anna Nagar & Central</div>
+              <div class="text-sm font-bold text-stone-900 group-hover:text-amber-800 transition-colors">Heritage & Metro Connected</div>
+              <div class="text-xs text-stone-600 font-medium">Prime residential appreciation</div>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-stone-100 group-hover:bg-amber-500 text-stone-400 group-hover:text-white flex items-center justify-center shrink-0 transition-colors shadow-sm">
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </div>
         </div>
       </div>
@@ -637,7 +670,7 @@
             <div class="absolute bottom-0 left-0 w-full p-5 sm:p-7 text-white">
               <div class="flex justify-between items-center mb-2.5">
                 <div class="bg-amber-500 text-stone-950 rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-bold shadow-md shrink-0">₹2.75 Crore</div>
-                <button aria-label="View property details" class="w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
+                <button type="button" aria-label="View property details" onclick="event.stopPropagation(); openPropertyModal(1)" class="w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
                   <i data-lucide="arrow-up-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </button>
               </div>
@@ -658,7 +691,7 @@
             <div class="absolute bottom-0 left-0 w-full p-5 sm:p-7 text-white">
               <div class="flex justify-between items-center mb-2.5">
                 <div class="bg-amber-500 text-stone-950 rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-bold shadow-md shrink-0">₹85 Lakhs</div>
-                <button aria-label="View property details" class="w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
+                <button type="button" aria-label="View property details" onclick="event.stopPropagation(); openPropertyModal(2)" class="w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
                   <i data-lucide="arrow-up-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </button>
               </div>
@@ -678,7 +711,7 @@
             <div class="absolute bottom-0 left-0 w-full p-5 sm:p-7 text-white">
               <div class="flex justify-between items-center mb-2.5">
                 <div class="bg-amber-500 text-stone-950 rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-bold shadow-md shrink-0">₹1.95 Crore</div>
-                <button aria-label="View property details" class="w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
+                <button type="button" aria-label="View property details" onclick="event.stopPropagation(); openPropertyModal(3)" class="w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
                   <i data-lucide="arrow-up-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </button>
               </div>
@@ -698,7 +731,7 @@
             <div class="absolute bottom-0 left-0 w-full p-5 sm:p-7 text-white">
               <div class="flex justify-between items-center mb-2.5">
                 <div class="bg-stone-900/95 backdrop-blur-md rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-bold text-amber-300 shadow shrink-0">₹75,000 / mo</div>
-                <button aria-label="View property details" class="w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
+                <button type="button" aria-label="View property details" onclick="event.stopPropagation(); openPropertyModal(5)" class="w-10 h-10 sm:w-11 sm:h-11 bg-white text-stone-900 rounded-full flex items-center justify-center hover:bg-amber-500 hover:text-white transition-colors shadow shrink-0">
                   <i data-lucide="arrow-up-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </button>
               </div>
@@ -1334,48 +1367,92 @@
           </svg>
 
           <div class="grid gap-8 md:gap-16 relative z-10">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-stone-200 w-full sm:w-[90%] md:w-[85%] ml-auto gs-step-card">
-              <div class="text-amber-600 font-serif-display text-2xl mb-2">01</div>
+            <!-- Step 01 -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-stone-200 w-full sm:w-[90%] md:w-[85%] ml-auto gs-step-card hover:border-amber-400/80 transition-all">
+              <div class="flex items-center justify-between mb-2">
+                <div class="text-amber-600 font-serif-display text-2xl">01</div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full">Phase 1</span>
+              </div>
               <div class="w-full h-44 rounded-2xl overflow-hidden mb-5">
                 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Understand needs" class="w-full h-full object-cover">
               </div>
               <h3 class="text-2xl font-serif-display text-stone-900 mb-2">Understand Your Needs</h3>
-              <p class="text-stone-600 text-sm leading-relaxed">
+              <p class="text-stone-600 text-sm leading-relaxed mb-4">
                 We start with an honest discussion about your preferred Chennai location, budget, family requirements, and timeline.
               </p>
+              <div class="pt-3 border-t border-stone-100 flex items-center justify-between flex-wrap gap-2">
+                <span class="text-xs text-stone-500 font-medium">Free 1-on-1 consultation</span>
+                <a href="#contact" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-stone-900 text-white text-xs font-semibold hover:bg-amber-700 transition-colors shadow-sm">
+                  <span>Tell Your Requirements</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
             </div>
 
-            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-stone-200 w-full sm:w-[90%] md:w-[85%] gs-step-card">
-              <div class="text-amber-600 font-serif-display text-2xl mb-2">02</div>
+            <!-- Step 02 -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-stone-200 w-full sm:w-[90%] md:w-[85%] gs-step-card hover:border-amber-400/80 transition-all">
+              <div class="flex items-center justify-between mb-2">
+                <div class="text-amber-600 font-serif-display text-2xl">02</div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full">Phase 2</span>
+              </div>
               <div class="w-full h-44 rounded-2xl overflow-hidden mb-5">
                 <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80" alt="Curated selection" class="w-full h-full object-cover">
               </div>
               <h3 class="text-2xl font-serif-display text-stone-900 mb-2">Discover Suitable Properties</h3>
-              <p class="text-stone-600 text-sm leading-relaxed">
+              <p class="text-stone-600 text-sm leading-relaxed mb-4">
                 Review verified properties that align directly with your criteria, complete with pricing and location breakdowns.
               </p>
+              <div class="pt-3 border-t border-stone-100 flex items-center justify-between flex-wrap gap-2">
+                <span class="text-xs text-stone-500 font-medium">12+ live verified listings</span>
+                <a href="#properties" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-amber-600 text-white text-xs font-semibold hover:bg-amber-700 transition-colors shadow-sm">
+                  <span>Browse Catalog</span>
+                  <i data-lucide="arrow-down-right" class="w-3.5 h-3.5"></i>
+                </a>
+              </div>
             </div>
 
-            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-stone-200 w-full sm:w-[90%] md:w-[85%] ml-auto gs-step-card">
-              <div class="text-amber-600 font-serif-display text-2xl mb-2">03</div>
+            <!-- Step 03 -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-stone-200 w-full sm:w-[90%] md:w-[85%] ml-auto gs-step-card hover:border-amber-400/80 transition-all">
+              <div class="flex items-center justify-between mb-2">
+                <div class="text-amber-600 font-serif-display text-2xl">03</div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full">Phase 3</span>
+              </div>
               <div class="w-full h-44 rounded-2xl overflow-hidden mb-5">
                 <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="Site visit" class="w-full h-full object-cover">
               </div>
               <h3 class="text-2xl font-serif-display text-stone-900 mb-2">Arrange a Site Visit</h3>
-              <p class="text-stone-600 text-sm leading-relaxed">
+              <p class="text-stone-600 text-sm leading-relaxed mb-4">
                 Schedule accompanied property visits at your convenience to inspect the space, amenities, ventilation, and road access.
               </p>
+              <div class="pt-3 border-t border-stone-100 flex items-center justify-between flex-wrap gap-2">
+                <span class="text-xs text-stone-500 font-medium">Accompanied inspection</span>
+                <button onclick="openSiteVisitModal(2)" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-amber-600 bg-amber-50 text-amber-900 text-xs font-semibold hover:bg-amber-100 transition-colors shadow-sm">
+                  <span>Schedule Site Visit</span>
+                  <i data-lucide="calendar" class="w-3.5 h-3.5 text-amber-700"></i>
+                </button>
+              </div>
             </div>
 
-            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-stone-200 w-full sm:w-[90%] md:w-[85%] gs-step-card">
-              <div class="text-amber-600 font-serif-display text-2xl mb-2">04</div>
+            <!-- Step 04 -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-stone-200 w-full sm:w-[90%] md:w-[85%] gs-step-card hover:border-amber-400/80 transition-all">
+              <div class="flex items-center justify-between mb-2">
+                <div class="text-amber-600 font-serif-display text-2xl">04</div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full">Phase 4</span>
+              </div>
               <div class="w-full h-44 rounded-2xl overflow-hidden mb-5">
                 <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80" alt="Move forward" class="w-full h-full object-cover">
               </div>
               <h3 class="text-2xl font-serif-display text-stone-900 mb-2">Move Forward with Confidence</h3>
-              <p class="text-stone-600 text-sm leading-relaxed">
+              <p class="text-stone-600 text-sm leading-relaxed mb-4">
                 Receive clear assistance coordinating paperwork, transparent owner/builder discussions, and key milestones to complete your transaction.
               </p>
+              <div class="pt-3 border-t border-stone-100 flex items-center justify-between flex-wrap gap-2">
+                <span class="text-xs text-stone-500 font-medium">CMDA / Patta assistance</span>
+                <a href="#" onclick="openGeneralWhatsApp('Hi Niranjan, I would like direct guidance on property verification, documentation, and builder discussions in Chennai.'); return false;" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#25D366] text-white text-xs font-semibold hover:bg-emerald-600 transition-colors shadow-sm">
+                  <span>Consult on WhatsApp</span>
+                  <i data-lucide="message-circle" class="w-3.5 h-3.5 fill-current"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -1415,6 +1492,7 @@
               <div>
                 <div class="text-amber-400 font-bold text-sm mb-1">Clear Listings</div>
                 <div class="text-xs text-stone-400">Honest specifications, clear status indicators, and prompt answers.</div>
+                <button type="button" onclick="openAdvisoryModal('approvals')" class="mt-2 text-xs font-semibold text-amber-300 hover:text-white underline underline-offset-2">Ask about approvals and documents</button>
               </div>
             </div>
 
@@ -1458,7 +1536,7 @@
       <div class="max-w-3xl mx-auto space-y-4">
         <!-- FAQ 1 -->
         <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm">
-          <button onclick="toggleFaq(1)" class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+          <button onclick="toggleFaq(1)" aria-expanded="false" aria-controls="faq-ans-1" class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
             <span class="text-sm md:text-base font-bold text-stone-900">What is the difference between CMDA and DTCP approvals in Chennai?</span>
             <i id="faq-icon-1" data-lucide="chevron-down" class="w-5 h-5 text-amber-700 transition-transform duration-300"></i>
           </button>
@@ -1469,7 +1547,7 @@
 
         <!-- FAQ 2 -->
         <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm">
-          <button onclick="toggleFaq(2)" class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+          <button onclick="toggleFaq(2)" aria-expanded="false" aria-controls="faq-ans-2" class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
             <span class="text-sm md:text-base font-bold text-stone-900">Are there any hidden brokerage charges for buyers?</span>
             <i id="faq-icon-2" data-lucide="chevron-down" class="w-5 h-5 text-amber-700 transition-transform duration-300"></i>
           </button>
@@ -1480,7 +1558,7 @@
 
         <!-- FAQ 3 -->
         <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm">
-          <button onclick="toggleFaq(3)" class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+          <button onclick="toggleFaq(3)" aria-expanded="false" aria-controls="faq-ans-3" class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
             <span class="text-sm md:text-base font-bold text-stone-900">How do I arrange an accompanied physical site visit?</span>
             <i id="faq-icon-3" data-lucide="chevron-down" class="w-5 h-5 text-amber-700 transition-transform duration-300"></i>
           </button>
@@ -1491,7 +1569,7 @@
 
         <!-- FAQ 4 -->
         <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm">
-          <button onclick="toggleFaq(4)" class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+          <button onclick="toggleFaq(4)" aria-expanded="false" aria-controls="faq-ans-4" class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
             <span class="text-sm md:text-base font-bold text-stone-900">Can Niranjan assist NRI clients with video walkthroughs and legal checks?</span>
             <i id="faq-icon-4" data-lucide="chevron-down" class="w-5 h-5 text-amber-700 transition-transform duration-300"></i>
           </button>
@@ -1502,7 +1580,7 @@
 
         <!-- FAQ 5 -->
         <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm">
-          <button onclick="toggleFaq(5)" class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+          <button onclick="toggleFaq(5)" aria-expanded="false" aria-controls="faq-ans-5" class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
             <span class="text-sm md:text-base font-bold text-stone-900">What documents should I verify before purchasing an apartment in Chennai?</span>
             <i id="faq-icon-5" data-lucide="chevron-down" class="w-5 h-5 text-amber-700 transition-transform duration-300"></i>
           </button>
@@ -1879,7 +1957,7 @@
           <button type="button" onclick="selectVisitDay('This Saturday')" class="visit-day-btn py-2 px-2 rounded-xl border border-stone-200 text-stone-700 text-xs font-medium hover:border-amber-600 transition-all text-center">This Saturday</button>
           <button type="button" onclick="selectVisitDay('This Sunday')" class="visit-day-btn py-2 px-2 rounded-xl border border-stone-200 text-stone-700 text-xs font-medium hover:border-amber-600 transition-all text-center">This Sunday</button>
         </div>
-        <input type="date" id="visit-custom-date" onchange="onCustomDatePick(this.value)" class="w-full text-xs p-2.5 rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 text-stone-700">
+        <input type="date" id="visit-custom-date" min="2026-10-15" onchange="onCustomDatePick(this.value)" class="w-full text-xs p-2.5 rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 text-stone-700">
       </div>
 
       <!-- Time Window Selection -->
@@ -1949,6 +2027,45 @@
           <button onclick="clearShortlist()" class="text-xs text-stone-400 hover:text-rose-600 transition-colors">Clear All Saved Homes</button>
           <button onclick="closeShortlistDrawer()" class="text-xs text-stone-600 hover:underline">Continue Browsing</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       ADVISORY & LEGAL INFORMATION MODAL
+       ========================================== -->
+  <div id="advisory-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-stone-950/75 backdrop-blur-md p-3 sm:p-6 flex items-center justify-center transition-opacity duration-300"
+       role="dialog" aria-modal="true" aria-labelledby="advisory-modal-title">
+    <div class="bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto p-5 sm:p-8 shadow-2xl border border-stone-200 relative my-4 sm:my-6" onclick="event.stopPropagation()">
+      <button onclick="closeAdvisoryModal()" aria-label="Close information modal"
+              class="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 w-9 h-9 rounded-full bg-stone-100 text-stone-600 hover:bg-stone-200 flex items-center justify-center transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold shrink-0">
+          <i data-lucide="shield-check" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 id="advisory-modal-title" class="text-xl font-serif-display text-stone-900 leading-snug">Chennai Real Estate Advisory</h3>
+          <p class="text-xs text-stone-500">Transparent guidance from Niranjan</p>
+        </div>
+      </div>
+
+      <div id="advisory-modal-body" class="mb-6">
+        <!-- Injected dynamically based on topic -->
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-stone-200">
+        <button onclick="openGeneralWhatsApp('Hi Niranjan, I would like to consult with you regarding property verification and statutory guidelines in Chennai.'); closeAdvisoryModal();"
+                class="w-full sm:w-2/3 py-3 px-4 rounded-full bg-[#25D366] hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow transition-all">
+          <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i>
+          <span>Ask Niranjan on WhatsApp</span>
+        </button>
+        <button onclick="closeAdvisoryModal()"
+                class="w-full sm:w-1/3 py-3 px-4 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-800 font-semibold text-xs transition-colors">
+          Close
+        </button>
       </div>
     </div>
   </div>
@@ -2086,50 +2203,63 @@
     // 1. BUSINESS CONFIGURATION FOR NIRANJAN
     // ==========================================
     const NIRANJAN_CONFIG = {
-      whatsappNumber: '91XXXXXXXXXX', // <-- IMPORTANT: Replace placeholder with active number
-      whatsappDisplay: '+91 XXXXX XXXXX',
+      whatsappNumber: '', // Set the active WhatsApp number with country code before launch.
+      whatsappDisplay: 'Contact us on WhatsApp',
       businessEmail: 'contact@niranjanrealestate.com',
       serviceLocation: 'Chennai, Tamil Nadu, India'
     };
 
+    function getEmailUrl(message) {
+      const subject = 'Chennai property inquiry';
+      const defaultMsg = "Hi Niranjan, I'm looking for a property in Chennai. Could you help me find suitable options?";
+      return `mailto:${NIRANJAN_CONFIG.businessEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message || defaultMsg)}`;
+    }
+
     function getWhatsAppUrl(customMessage) {
       const defaultMsg = "Hi Niranjan, I'm looking for a property in Chennai. Could you help me find suitable options?";
       const msg = customMessage || defaultMsg;
-      return `https://wa.me/${NIRANJAN_CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+      const number = String(NIRANJAN_CONFIG.whatsappNumber || '').replace(/\D/g, '');
+      return number ? `https://wa.me/${number}?text=${encodeURIComponent(msg)}` : '';
     }
 
     function initializeStaticWhatsAppLinks() {
       const defaultMsg = "Hi Niranjan, I'm looking for a property in Chennai. Could you help me find suitable options?";
       const navBtn = document.getElementById('nav-whatsapp-btn');
-      if (navBtn) navBtn.href = getWhatsAppUrl(defaultMsg);
+      if (navBtn) navBtn.href = getWhatsAppUrl(defaultMsg) || getEmailUrl(defaultMsg);
 
       const navMobBtn = document.getElementById('nav-mobile-whatsapp-btn');
-      if (navMobBtn) navMobBtn.href = getWhatsAppUrl(defaultMsg);
+      if (navMobBtn) navMobBtn.href = getWhatsAppUrl(defaultMsg) || '#contact';
 
       const drawerBtn = document.getElementById('drawer-whatsapp-btn');
-      if (drawerBtn) drawerBtn.href = getWhatsAppUrl(defaultMsg);
+      if (drawerBtn) drawerBtn.href = getWhatsAppUrl(defaultMsg) || '#contact';
 
       const heroBtn = document.getElementById('hero-whatsapp-btn');
-      if (heroBtn) heroBtn.href = getWhatsAppUrl(defaultMsg);
+      if (heroBtn) heroBtn.href = getWhatsAppUrl(defaultMsg) || '#contact';
 
       const floatBtn = document.getElementById('floating-whatsapp-btn');
-      if (floatBtn) floatBtn.href = getWhatsAppUrl(defaultMsg);
+      if (floatBtn) floatBtn.href = getWhatsAppUrl(defaultMsg) || '#contact';
 
       const bubbleBtn = document.getElementById('bubble-whatsapp-btn');
-      if (bubbleBtn) bubbleBtn.href = getWhatsAppUrl(defaultMsg);
+      if (bubbleBtn) bubbleBtn.href = getWhatsAppUrl(defaultMsg) || '#contact';
 
       const contactLink = document.getElementById('contact-whatsapp-link');
-      if (contactLink) contactLink.href = getWhatsAppUrl(defaultMsg);
+      if (contactLink) contactLink.href = getWhatsAppUrl(defaultMsg) || '#contact';
 
       const footerBtn = document.getElementById('footer-whatsapp-btn');
-      if (footerBtn) footerBtn.href = getWhatsAppUrl(defaultMsg);
+      if (footerBtn) footerBtn.href = getWhatsAppUrl(defaultMsg) || '#contact';
 
       const emptyWhatsapp = document.getElementById('empty-state-whatsapp');
-      if (emptyWhatsapp) emptyWhatsapp.href = getWhatsAppUrl(defaultMsg);
+      if (emptyWhatsapp) emptyWhatsapp.href = getWhatsAppUrl(defaultMsg) || '#contact';
     }
 
     function openGeneralWhatsApp(message) {
-      window.open(getWhatsAppUrl(message), '_blank');
+      const url = getWhatsAppUrl(message);
+      if (url) {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      } else {
+        window.location.href = getEmailUrl(message);
+        showToast('Opening an email inquiry because WhatsApp is not configured');
+      }
     }
 
     // ==========================================
@@ -2531,19 +2661,19 @@
         filtered.sort((a, b) => parseInt(b.area) - parseInt(a.area));
       }
 
-      countEl.innerText = filtered.length;
+      if (countEl) countEl.innerText = filtered.length;
 
       if (filtered.length === 0) {
         grid.innerHTML = '';
-        noResults.classList.remove('hidden');
+        if (noResults) noResults.classList.remove('hidden');
         return;
       }
 
-      noResults.classList.add('hidden');
+      if (noResults) noResults.classList.add('hidden');
 
       grid.innerHTML = filtered.map(item => {
         const whatsappMsg = `Hi Niranjan, I'm interested in "${item.title}" in ${item.location} (Price: ${item.priceFormatted}). Could you share more details and arrange a site visit?`;
-        const whatsappUrl = getWhatsAppUrl(whatsappMsg);
+        const whatsappUrl = getWhatsAppUrl(whatsappMsg) || getEmailUrl(whatsappMsg);
         const statusClass = item.status === 'rent' ? 'bg-emerald-600 text-white' : 'bg-stone-900 text-white';
         const isShortlisted = savedPropertyIds.includes(item.id);
 
@@ -2621,7 +2751,7 @@
                   <i data-lucide="calendar" class="w-3.5 h-3.5 text-amber-700 shrink-0"></i>
                   <span>Visit</span>
                 </button>
-                <a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer"
+                <a href="${whatsappUrl || '#contact'}" ${whatsappUrl ? 'target="_blank" rel="noopener noreferrer"' : ''}
                    class="flex-1 py-2.5 px-2 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300 hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all text-xs font-semibold text-center flex items-center justify-center gap-1 shadow-sm truncate">
                   <i data-lucide="message-circle" class="w-3.5 h-3.5 fill-current shrink-0"></i>
                   <span>Chat</span>
@@ -3038,7 +3168,7 @@
       });
       msg += `\nCould you please share brochures and let me know your availability for site visits?`;
 
-      window.open(getWhatsAppUrl(msg), '_blank');
+      openGeneralWhatsApp(msg);
       closeShortlistDrawer();
     }
 
@@ -3056,7 +3186,7 @@
       document.getElementById('visit-prop-price').innerText = prop.priceFormatted;
 
       // Reset day/time defaults
-      selectedVisitDay = 'Tomorrow';
+      selectedVisitDay = getNextVisitDate('Tomorrow');
       selectedVisitTime = 'Morning (10:00 AM - 12:00 PM)';
 
       // Highlight first day button
@@ -3070,7 +3200,7 @@
       });
 
       const customInput = document.getElementById('visit-custom-date');
-      if (customInput) customInput.value = '';
+      if (customInput) { customInput.value = ''; customInput.min = new Date().toISOString().slice(0, 10); }
 
       // Highlight first time button
       const timeBtns = document.querySelectorAll('.visit-time-btn');
@@ -3104,8 +3234,21 @@
       }
     }
 
+    function getNextVisitDate(label) {
+      const date = new Date();
+      const weekdays = { 'This Sunday': 0, 'This Saturday': 6 };
+      if (label === 'Tomorrow') date.setDate(date.getDate() + 1);
+      else {
+        const target = weekdays[label];
+        let daysAhead = (target - date.getDay() + 7) % 7;
+        if (daysAhead === 0) daysAhead = 7;
+        date.setDate(date.getDate() + daysAhead);
+      }
+      return date.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
     function selectVisitDay(day) {
-      selectedVisitDay = day;
+      selectedVisitDay = getNextVisitDate(day);
       const dayBtns = document.querySelectorAll('.visit-day-btn');
       dayBtns.forEach(btn => {
         if (btn.innerText.trim().includes(day)) {
@@ -3120,7 +3263,9 @@
 
     function onCustomDatePick(val) {
       if (!val) return;
-      selectedVisitDay = val;
+      const pickedDate = new Date(`${val}T00:00:00`);
+      if (pickedDate < new Date(new Date().toDateString())) { showToast('Choose a date from today onwards', 'calendar'); document.getElementById('visit-custom-date').value = ''; return; }
+      selectedVisitDay = pickedDate.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
       const dayBtns = document.querySelectorAll('.visit-day-btn');
       dayBtns.forEach(btn => {
         btn.className = "visit-day-btn py-2 px-2 rounded-xl border border-stone-200 text-stone-700 text-xs font-medium hover:border-amber-600 transition-all text-center";
@@ -3154,9 +3299,9 @@
         `• Transit Pickup Needed: ${pickupText}\n\n` +
         `Please confirm your availability and the site meeting coordinates.`;
 
-      window.open(getWhatsAppUrl(msg), '_blank');
+      openGeneralWhatsApp(msg);
       closeSiteVisitModal();
-      showToast('Opening WhatsApp with your site visit request...', 'calendar');
+      if (getWhatsAppUrl(msg)) showToast('Your site visit request is ready in WhatsApp', 'calendar');
     }
 
     // Modal click & escape listeners
@@ -3173,6 +3318,29 @@
         if (e.target === shortlistDrawerBackdrop) closeShortlistDrawer();
       });
     }
+
+    function openAdvisoryModal(topic = 'overview') {
+      const copy = {
+        overview: ['Local, direct property guidance', 'Share your budget, preferred Chennai neighborhoods, and timeline. Niranjan will help you compare available options and arrange a visit.'],
+        approvals: ['Property approvals and documents', 'Ask about CMDA or DTCP approvals, title documents, patta, and property verification. Please verify every property document with a qualified professional before purchase.']
+      };
+      const [title, body] = copy[topic] || copy.overview;
+      const modal = document.getElementById('advisory-modal');
+      document.getElementById('advisory-modal-title').textContent = title;
+      document.getElementById('advisory-modal-body').textContent = body;
+      modal.classList.remove('hidden');
+      document.body.classList.add('modal-open');
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    function closeAdvisoryModal() {
+      const modal = document.getElementById('advisory-modal');
+      if (modal) modal.classList.add('hidden');
+      if (!document.querySelector('#property-modal:not(.hidden), #site-visit-modal:not(.hidden), #shortlist-drawer:not(.hidden), #mobile-menu:not(.hidden)')) document.body.classList.remove('modal-open');
+    }
+
+    const advisoryModalBackdrop = document.getElementById('advisory-modal');
+    if (advisoryModalBackdrop) advisoryModalBackdrop.addEventListener('click', (event) => { if (event.target === advisoryModalBackdrop) closeAdvisoryModal(); });
 
     // ==========================================
     // 7. PROPERTY DETAILS MODAL (Multi-Photo Gallery & Active Ring)
@@ -3222,7 +3390,10 @@
 
       // WhatsApp CTA
       const modalWhatsappMsg = `Hi Niranjan, I would like to inquire about "${property.title}" in ${property.location} (Price: ${property.priceFormatted}). Please share more details and availability.`;
-      document.getElementById('modal-whatsapp-cta').href = getWhatsAppUrl(modalWhatsappMsg);
+      const modalWhatsappUrl = getWhatsAppUrl(modalWhatsappMsg);
+      const modalWhatsappCta = document.getElementById('modal-whatsapp-cta');
+      modalWhatsappCta.href = modalWhatsappUrl || getEmailUrl(modalWhatsappMsg);
+      modalWhatsappCta.onclick = null;
 
       const modal = document.getElementById('property-modal');
       modal.classList.remove('hidden');
@@ -3254,6 +3425,8 @@
         closePropertyModal();
         closeSiteVisitModal();
         closeShortlistDrawer();
+        closeAdvisoryModal();
+        if (typeof window.closeMobileMenu === 'function') window.closeMobileMenu();
       }
     });
 
@@ -3412,12 +3585,16 @@
       for (let i = 1; i <= 5; i++) {
         const a = document.getElementById(`faq-ans-${i}`);
         const ic = document.getElementById(`faq-icon-${i}`);
+        const btn = document.querySelector(`[aria-controls="faq-ans-${i}"]`);
         if (a) a.classList.add('hidden');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
         if (ic) ic.classList.remove('rotate-180');
       }
 
       if (!isOpen) {
         ans.classList.remove('hidden');
+        const btn = document.querySelector(`[aria-controls="faq-ans-${index}"]`);
+        if (btn) btn.setAttribute('aria-expanded', 'true');
         if (icon) icon.classList.add('rotate-180');
       }
     }
@@ -3443,6 +3620,8 @@
         menu.classList.add('hidden');
         toggleBtn.setAttribute('aria-expanded', 'false');
         document.body.classList.remove('modal-open');
+        if (document.querySelector('#shortlist-drawer:not(.hidden), #property-modal:not(.hidden), #site-visit-modal:not(.hidden), #advisory-modal:not(.hidden)')) document.body.classList.add('modal-open');
+        toggleBtn.focus();
       }
 
       window.openMobileMenu = openMenu;
@@ -3484,7 +3663,7 @@
         }
 
         const phoneVal = phoneInput.value.trim().replace(/\D/g, '');
-        if (phoneVal.length < 10) {
+        if (!/^[6-9]\d{9}$/.test(phoneVal)) {
           phoneInput.nextElementSibling.classList.remove('hidden');
           valid = false;
         } else {
@@ -3526,11 +3705,13 @@
         whatsappBtn.addEventListener('click', () => {
           if (!validateInputs()) return;
           const inquiryMsg = buildInquiryMessage();
-          window.open(getWhatsAppUrl(inquiryMsg), '_blank');
+          const url = getWhatsAppUrl(inquiryMsg);
+          if (!url) { window.location.href = getEmailUrl(inquiryMsg); feedback.className = 'p-4 rounded-xl text-xs font-medium bg-amber-50 text-amber-900 border border-amber-200 mt-4 block'; feedback.textContent = 'WhatsApp is not configured. Your email app is opening with the inquiry ready to review and send.'; return; }
+          window.open(url, '_blank', 'noopener,noreferrer');
 
           feedback.className = 'p-4 rounded-xl text-xs font-medium bg-emerald-50 text-emerald-900 border border-emerald-200 mt-4 block';
           feedback.innerHTML = `
-            <strong>Opening WhatsApp:</strong> Your inquiry details have been formatted. Please tap "Send" in WhatsApp to deliver your message to Niranjan.
+            <strong>Inquiry ready:</strong> Review the message in WhatsApp, then tap Send to deliver it.
           `;
         });
       }
@@ -3539,22 +3720,53 @@
         e.preventDefault();
         if (!validateInputs()) return;
 
-        const name = document.getElementById('contact-name').value.trim();
-
-        feedback.className = 'p-4 rounded-xl text-xs font-medium bg-stone-100 text-stone-800 border border-stone-200 mt-4 block';
-        feedback.innerHTML = `
-          <strong>Thank you, ${name}!</strong> Your inquiry has been received. You can also chat immediately on WhatsApp for a faster response.
-        `;
-
-        form.reset();
+        const url = getWhatsAppUrl(buildInquiryMessage());
+        if (!url) { window.location.href = getEmailUrl(buildInquiryMessage()); feedback.className = 'p-4 rounded-xl text-xs font-medium bg-amber-50 text-amber-900 border border-amber-200 mt-4 block'; feedback.textContent = 'WhatsApp is not configured. Your email app is opening with the inquiry ready to review and send.'; return; }
+        window.open(url, '_blank', 'noopener,noreferrer');
+        feedback.className = 'p-4 rounded-xl text-xs font-medium bg-emerald-50 text-emerald-900 border border-emerald-200 mt-4 block';
+        feedback.textContent = 'Your inquiry is ready in WhatsApp. Review it there and tap Send to deliver it.';
       });
+    }
+
+    function setupPortfolioFallbackControls() {
+      const container = document.getElementById('portfolio-container-el');
+      if (!container) return;
+      const track = container.querySelector('.cards-track');
+      const cards = Array.from(container.querySelectorAll('.property-card'));
+      const dotsContainer = document.getElementById('portfolio-dots');
+      if (window.innerWidth > 768 && track) {
+        container.style.overflowX = 'auto';
+        track.style.width = 'max-content';
+      }
+      if (dotsContainer) dotsContainer.innerHTML = cards.map((_, i) => `<button type="button" onclick="scrollPortfolioTo(${i})" aria-label="Go to featured property ${i + 1}" aria-current="${i === 0 ? 'true' : 'false'}" class="portfolio-dot h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-stone-900' : 'bg-stone-300'}" style="width:${i === 0 ? '1.5rem' : '0.5rem'}"></button>`).join('');
+      window.scrollPortfolioTo = (index) => cards[index]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      window.portfolioScrollStep = (direction) => {
+        const card = cards[0];
+        container.scrollBy({ left: direction * (card ? card.offsetWidth + 16 : 320), behavior: 'smooth' });
+      };
+      let frame = 0;
+      container.addEventListener('scroll', () => {
+        if (frame) cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+          const activeIndex = cards.reduce((best, card, i) => Math.abs(card.getBoundingClientRect().left - container.getBoundingClientRect().left) < Math.abs(cards[best].getBoundingClientRect().left - container.getBoundingClientRect().left) ? i : best, 0);
+          container.querySelectorAll('.portfolio-dot').forEach((dot, i) => {
+            dot.setAttribute('aria-current', String(i === activeIndex));
+            dot.style.width = i === activeIndex ? '1.5rem' : '0.5rem';
+            dot.classList.toggle('bg-stone-900', i === activeIndex);
+            dot.classList.toggle('bg-stone-300', i !== activeIndex);
+          });
+        });
+      }, { passive: true });
     }
 
     // ==========================================
     // 9. GSAP ANIMATIONS
     // ==========================================
     function initializeGSAPAnimations() {
-      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        setupPortfolioFallbackControls();
+        return;
+      }
 
       gsap.registerPlugin(ScrollTrigger);
 
@@ -3748,6 +3960,8 @@
             ease: "sine.inOut"
           });
         });
+      }
+
       // ---- Carousel Controller (Desktop & Mobile) ----
       window.scrollPortfolioTo = function(index) {
         if (portfolioContainerEl) {
@@ -3760,8 +3974,10 @@
 
       if (portfolioContainerEl) {
         // Dot synchronization on scroll
-        const dots = document.querySelectorAll('.portfolio-dot');
         const cards = portfolioContainerEl.querySelectorAll('.property-card');
+        const dotsContainer = document.getElementById('portfolio-dots');
+        if (dotsContainer && cards.length) dotsContainer.innerHTML = Array.from(cards, (_, i) => `<button type="button" onclick="scrollPortfolioTo(${i})" aria-label="Go to featured property ${i + 1}" aria-current="${i === 0 ? 'true' : 'false'}" class="portfolio-dot h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-stone-900' : 'bg-stone-300'}" style="width:${i === 0 ? '1.5rem' : '0.5rem'}"></button>`).join('');
+        const dots = document.querySelectorAll('.portfolio-dot');
         portfolioContainerEl.addEventListener('scroll', () => {
           const scrollLeft = portfolioContainerEl.scrollLeft;
           let activeIdx = 0;
@@ -3775,6 +3991,7 @@
             }
           });
           dots.forEach((dot, i) => {
+            dot.setAttribute('aria-current', i === activeIdx ? 'true' : 'false');
             if (i === activeIdx) {
               dot.style.width = '1.5rem';
               dot.classList.remove('bg-stone-300');
