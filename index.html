@@ -120,6 +120,12 @@
     .content-reveal-item { transition: opacity .52s ease, transform .58s cubic-bezier(.2,.7,.2,1); }
     html.has-content-reveal .content-reveal-item:not(.is-in-view) { opacity: 0; transform: translateY(12px); }
     .content-reveal-item.is-in-view { opacity: 1; transform: translateY(0); }
+    .property-card-content { min-width: 0; }
+    .property-card-location { overflow-wrap: anywhere; }
+    .property-card-specs > div { min-width: 0; }
+    .property-card-specs span { overflow-wrap: anywhere; }
+    .property-card-actions > * { min-width: 0; }
+    .property-card-price { min-width: 0; overflow-wrap: anywhere; }
     .journey-card { transition: opacity 560ms ease, transform 560ms cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .25s ease; }
     .journey-card:hover { box-shadow: 0 18px 40px rgba(28, 25, 23, .09); }
     .journey-image img { transition: transform .7s cubic-bezier(.2,.7,.2,1); }
@@ -2756,23 +2762,23 @@
                 </button>
               </div>
 
-              <div class="absolute bottom-3 left-4 right-4 flex justify-between items-baseline text-white">
-                <div class="font-bold text-xl font-serif-display drop-shadow">
+              <div class="absolute bottom-3 left-4 right-4 flex flex-wrap justify-between items-end gap-x-2 gap-y-0.5 text-white">
+                <div class="property-card-price font-bold text-lg sm:text-xl font-serif-display drop-shadow">
                   ${item.priceFormatted}
                 </div>
-                <div class="text-[11px] text-amber-200 font-sans">
+                <div class="text-[10px] sm:text-[11px] text-amber-200 font-sans">
                   ${item.perSqft}
                 </div>
               </div>
             </div>
 
-            <div class="p-6 flex flex-col grow">
-              <div class="flex items-center gap-1.5 text-xs text-amber-700 font-semibold mb-1.5">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+            <div class="property-card-content p-4 sm:p-6 flex flex-col grow">
+              <div class="property-card-location flex items-start gap-1.5 text-xs text-amber-700 font-semibold mb-1.5">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 shrink-0 mt-0.5"></i>
                 <span>${item.location}</span>
               </div>
 
-              <h3 class="text-xl font-serif-display text-stone-900 mb-2 group-hover:text-amber-800 transition-colors cursor-pointer" onclick="openPropertyModal(${item.id})">
+              <h3 class="text-lg sm:text-xl font-serif-display text-stone-900 mb-2 group-hover:text-amber-800 transition-colors cursor-pointer break-words" onclick="openPropertyModal(${item.id})">
                 ${item.title}
               </h3>
 
@@ -2780,33 +2786,33 @@
                 ${item.description}
               </p>
 
-              <div class="grid grid-cols-3 gap-2 py-3 border-y border-stone-100 text-[11px] text-stone-600 mb-5">
-                <div class="flex items-center gap-1">
-                  <i data-lucide="bed" class="w-3.5 h-3.5 text-stone-400"></i>
+              <div class="property-card-specs grid grid-cols-3 gap-1 sm:gap-2 py-3 border-y border-stone-100 text-[10px] sm:text-[11px] text-stone-600 mb-5">
+                <div class="flex items-start gap-1">
+                  <i data-lucide="bed" class="w-3.5 h-3.5 text-stone-400 shrink-0"></i>
                   <span>${item.beds}</span>
                 </div>
-                <div class="flex items-center gap-1">
-                  <i data-lucide="maximize" class="w-3.5 h-3.5 text-stone-400"></i>
+                <div class="flex items-start gap-1">
+                  <i data-lucide="maximize" class="w-3.5 h-3.5 text-stone-400 shrink-0"></i>
                   <span>${item.area}</span>
                 </div>
-                <div class="flex items-center gap-1">
-                  <i data-lucide="bath" class="w-3.5 h-3.5 text-stone-400"></i>
+                <div class="flex items-start gap-1">
+                  <i data-lucide="bath" class="w-3.5 h-3.5 text-stone-400 shrink-0"></i>
                   <span>${item.baths}</span>
                 </div>
               </div>
 
-              <div class="flex items-center gap-2 pt-1">
+              <div class="property-card-actions grid grid-cols-3 gap-1.5 sm:gap-2 pt-1">
                 <button onclick="openPropertyModal(${item.id})" 
-                        class="flex-1 py-2.5 px-2 rounded-full border border-stone-300 hover:border-stone-900 hover:bg-stone-900 hover:text-white transition-all text-xs font-medium text-stone-800 text-center truncate">
+                        class="w-full py-2.5 px-1 sm:px-2 rounded-full border border-stone-300 hover:border-stone-900 hover:bg-stone-900 hover:text-white transition-all text-[11px] sm:text-xs font-medium text-stone-800 text-center truncate">
                   Details
                 </button>
                 <button onclick="openSiteVisitModal(${item.id})" 
-                        class="flex-1 py-2.5 px-2 rounded-full border border-amber-600 bg-amber-50 text-amber-900 hover:bg-amber-100 transition-all text-xs font-semibold text-center flex items-center justify-center gap-1 shadow-sm truncate">
+                        class="w-full py-2.5 px-1 sm:px-2 rounded-full border border-amber-600 bg-amber-50 text-amber-900 hover:bg-amber-100 transition-all text-[11px] sm:text-xs font-semibold text-center flex items-center justify-center gap-1 shadow-sm truncate">
                   <i data-lucide="calendar" class="w-3.5 h-3.5 text-amber-700 shrink-0"></i>
                   <span>Visit</span>
                 </button>
                 <a href="${whatsappUrl || '#contact'}" ${whatsappUrl ? 'target="_blank" rel="noopener noreferrer"' : ''}
-                   class="flex-1 py-2.5 px-2 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300 hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all text-xs font-semibold text-center flex items-center justify-center gap-1 shadow-sm truncate">
+                   class="w-full py-2.5 px-1 sm:px-2 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300 hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all text-[11px] sm:text-xs font-semibold text-center flex items-center justify-center gap-1 shadow-sm truncate">
                   <i data-lucide="message-circle" class="w-3.5 h-3.5 fill-current shrink-0"></i>
                   <span>Chat</span>
                 </a>
